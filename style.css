@@ -1,51 +1,169 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 0;
+:root{
+  --bg: #0b1020;
+  --card: rgba(255,255,255,0.08);
+  --card2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.12);
+  --text: #e9eefc;
+  --muted: rgba(233,238,252,0.72);
+  --accent: #22c55e;
+  --accent2: #38bdf8;
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --radius: 18px;
+  --radius2: 26px;
+  --max: 820px;
 }
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-    margin-top: 20px;
-    border-radius: 10px;
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color: var(--text);
+  background:
+    radial-gradient(900px 600px at 15% 5%, rgba(56,189,248,.22), transparent 60%),
+    radial-gradient(900px 600px at 85% 0%, rgba(34,197,94,.18), transparent 60%),
+    linear-gradient(180deg, #050816 0%, var(--bg) 55%, #070a14 100%);
+  line-height: 1.6;
+  padding-bottom: 90px; /* sticky tugma uchun joy */
 }
 
-h1 {
-    text-align: center;
+/* Container */
+.container{
+  max-width: var(--max);
+  margin: 22px auto;
+  padding: 22px;
+  background: linear-gradient(180deg, var(--card), var(--card2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
-.desc {
-    text-align: center;
-    color: gray;
+/* Headings */
+h1{
+  margin: 6px 0 6px;
+  text-align: center;
+  font-size: clamp(26px, 4vw, 38px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+h1::after{
+  content: "";
+  display: block;
+  width: 90px;
+  height: 4px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  opacity: .95;
 }
 
-ul {
-    line-height: 1.8;
+h2{
+  margin: 22px 0 10px;
+  font-size: clamp(18px, 2.5vw, 22px);
+  letter-spacing: -0.01em;
 }
 
-.buyurtma {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: white;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+/* Description */
+.desc{
+  margin: 10px auto 18px;
+  max-width: 62ch;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15.5px;
 }
 
-.buyurtma a {
-    background: #2ecc71;
-    color: white;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 16px;
+/* List */
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: grid;
+  gap: 10px;
 }
 
-.buyurtma a:hover {
-    background: #27ae60;
+ul li{
+  position: relative;
+  padding: 12px 14px 12px 44px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 8px 18px rgba(0,0,0,.18);
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+ul li::before{
+  content: "✓";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #06130b;
+  background: linear-gradient(180deg, var(--accent2), var(--accent));
+}
+
+ul li:hover{
+  transform: translateY(-2px);
+  border-color: rgba(56,189,248,0.32);
+  background: rgba(255,255,255,0.07);
+}
+
+/* Sticky order bar */
+.buyurtma{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(10, 14, 28, 0.72);
+  border-top: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(12px);
+}
+
+.buyurtma a{
+  display: block;
+  width: min(680px, calc(100% - 8px));
+  margin: 0 auto;
+  text-align: center;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  color: #06130b;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  box-shadow: 0 14px 30px rgba(34,197,94,.18), 0 14px 30px rgba(56,189,248,.12);
+  transition: transform .12s ease, filter .12s ease;
+}
+
+.buyurtma a:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.buyurtma a:active{
+  transform: translateY(0px) scale(0.99);
+}
+
+/* Small screens */
+@media (max-width: 520px){
+  .container{
+    margin: 14px 12px;
+    padding: 18px;
+    border-radius: 20px;
+  }
+  ul li{
+    padding: 12px 12px 12px 42px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; }
 }
